@@ -34,6 +34,15 @@ Only combine elements into one SVG when they are genuinely one inseparable drawi
 python3 scripts/build_granular_workflow.py path/to/manifest.json
 ```
 
+If text or formula SVGs still contain `<text>`/`<tspan>`, convert them to path SVGs before building:
+
+```bash
+sh scripts/outline_svg_text_with_inkscape.sh path/to/text --out path/to/text_outlined
+sh scripts/outline_svg_text_with_inkscape.sh path/to/formula --out path/to/formula_outlined
+```
+
+On macOS/Homebrew Inkscape, `inkscape --version` may abort inside the Codex sandbox, and Python `subprocess` may hang on the Homebrew Inkscape wrapper. This is an environment issue, not an SVG issue. Run `outline_svg_text_with_inkscape.sh` with outside-sandbox/escalated permissions, then use the generated `*_outlined` folders in the manifest.
+
 5. Inspect:
    - `granular_outputs/01_atomic_svg/` for independent atoms.
    - `granular_outputs/02_unit_layouts/` for editable placement metadata.
@@ -57,6 +66,8 @@ Before handing results to the user:
 ## Bundled Resources
 
 - `scripts/build_granular_workflow.py`: deterministic builder for atom SVGs, layouts, previews, contact sheets, QA, and zip output.
+- `scripts/outline_svg_text_with_inkscape.sh`: stable shell wrapper for converting text/formula SVGs to outlined paths with Inkscape on macOS.
+- `scripts/outline_svg_text_with_inkscape.py`: diagnostic Python wrapper; use the shell wrapper for production on macOS/Homebrew Inkscape.
 - `references/granularity-rules.md`: hard splitting rules.
 - `assets/templates/figure_manifest_template.json`: starter manifest.
 - `assets/examples/topology_framework_granular_v1.json`: working example from a topology-explainable federated trajectory prediction framework figure.

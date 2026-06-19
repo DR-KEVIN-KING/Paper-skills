@@ -73,22 +73,12 @@ def read_manifest(path: Path) -> dict:
 
 def marker_defs() -> str:
     return """<defs>
-  <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,3 L0,6 Z" fill="#386FAE"/></marker>
-  <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,3 L0,6 Z" fill="#3B8B63"/></marker>
-  <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,3 L0,6 Z" fill="#C84A45"/></marker>
-  <marker id="arrow-ink" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,3 L0,6 Z" fill="#2F3A44"/></marker>
+  <marker id="arrow-ink" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,3 L0,6 Z" fill="#111111"/></marker>
 </defs>"""
 
 
 def marker_for(stroke: str) -> str:
-    color = stroke.upper()
-    if color == "#3B8B63":
-        return "url(#arrow-green)"
-    if color == "#C84A45":
-        return "url(#arrow-red)"
-    if color == "#2F3A44":
-        return "url(#arrow-ink)"
-    return "url(#arrow-blue)"
+    return "url(#arrow-ink)"
 
 
 def write_frame_svg(frame: dict) -> Path:
