@@ -1,0 +1,43 @@
+{
+  "project": "new_figure_project",
+  "description": "Describe the figure and target manuscript use here.",
+  "library_roots": {
+    "visual": "/absolute/path/to/svg_vector_assets",
+    "text": "/absolute/path/to/svg_text_labels",
+    "text_outlined": "/absolute/path/to/svg_text_labels_outlined",
+    "formula": "/absolute/path/to/svg_formulas",
+    "formula_outlined": "/absolute/path/to/svg_formulas_outlined"
+  },
+  "copy_assets": {
+    "visual": [],
+    "text": [],
+    "text_outlined": [],
+    "formula": [],
+    "formula_outlined": []
+  },
+  "groups": [
+    {
+      "name": "example_group",
+      "width": 320,
+      "height": 180,
+      "frame": {
+        "stroke": "#386FAE",
+        "fill": "#FFFFFF",
+        "stroke_width": 2,
+        "radius": 12
+      },
+      "items": [
+        {
+          "type": "asset",
+          "lib": "text_outlined",
+          "name": "example_label.svg",
+          "x": 30,
+          "y": 18,
+          "w": 260,
+          "h": 44
+        }
+      ],
+      "connectors": []
+    }
+  ]
+}

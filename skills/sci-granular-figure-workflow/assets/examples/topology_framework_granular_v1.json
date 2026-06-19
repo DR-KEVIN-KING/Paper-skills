@@ -1,0 +1,137 @@
+{
+  "project": "topology_framework_granular_v1",
+  "description": "Granular element workflow: frames, visual atoms, text atoms, formula atoms, and connectors remain separate; assembled SVGs are previews only.",
+  "library_roots": {
+    "visual": "/Users/kevin.king/Documents/三区论文工作/15_SCI工程示意素材库_20260619/svg_vector_assets",
+    "text_outlined": "/Users/kevin.king/Documents/三区论文工作/18_文字SVG渲染_20260619/svg_text_labels_outlined",
+    "formula_outlined": "/Users/kevin.king/Documents/三区论文工作/17_公式SVG渲染_20260619/svg_formulas_outlined"
+  },
+  "style": {
+    "colors": {
+      "blue": "#386FAE",
+      "green": "#3B8B63",
+      "red": "#C84A45",
+      "orange": "#D7893B",
+      "violet": "#7667A8",
+      "ink": "#2F3A44"
+    }
+  },
+  "atomic_copies": [
+    {"id": "title_main", "kind": "text", "lib": "text_outlined", "file": "01_main_title.svg"},
+    {"id": "label_server_layer", "kind": "text", "lib": "text_outlined", "file": "02_layer_server.svg"},
+    {"id": "label_training_layer", "kind": "text", "lib": "text_outlined", "file": "03_layer_training.svg"},
+    {"id": "label_vehicle_layer", "kind": "text", "lib": "text_outlined", "file": "04_layer_vehicle.svg"},
+    {"id": "module_title_topology_audit", "kind": "text", "lib": "text_outlined", "file": "05_module_topology_audit.svg"},
+    {"id": "module_title_memory", "kind": "text", "lib": "text_outlined", "file": "06_module_memory.svg"},
+    {"id": "module_title_health_scoring", "kind": "text", "lib": "text_outlined", "file": "07_module_health_scoring.svg"},
+    {"id": "module_title_hard_isolation", "kind": "text", "lib": "text_outlined", "file": "08_module_hard_isolation.svg"},
+    {"id": "label_accepted_set", "kind": "text", "lib": "text_outlined", "file": "11_accepted_set.svg"},
+    {"id": "label_isolated_set", "kind": "text", "lib": "text_outlined", "file": "12_isolated_set.svg"},
+    {"id": "label_excluded", "kind": "text", "lib": "text_outlined", "file": "13_excluded.svg"},
+    {"id": "label_client1_benign", "kind": "text", "lib": "text_outlined", "file": "14_client1_benign.svg"},
+    {"id": "label_local_training", "kind": "text", "lib": "text_outlined", "file": "17_local_training.svg"},
+    {"id": "server_security", "kind": "visual", "lib": "visual", "file": "server_rack_security.svg"},
+    {"id": "topology_blue", "kind": "visual", "lib": "visual", "file": "topology_graph_blue.svg"},
+    {"id": "topology_green", "kind": "visual", "lib": "visual", "file": "topology_graph_green.svg"},
+    {"id": "matrix_blue", "kind": "visual", "lib": "visual", "file": "edge_importance_matrix_blue.svg"},
+    {"id": "memory_battery", "kind": "visual", "lib": "visual", "file": "continual_memory_battery.svg"},
+    {"id": "health_balance", "kind": "visual", "lib": "visual", "file": "adaptive_health_balance.svg"},
+    {"id": "health_shield", "kind": "visual", "lib": "visual", "file": "health_pulse_shield_red.svg"},
+    {"id": "norm_ratio_magnifier", "kind": "visual", "lib": "visual", "file": "norm_ratio_magnifier.svg"},
+    {"id": "firewall_excluded", "kind": "visual", "lib": "visual", "file": "excluded_firewall.svg"},
+    {"id": "accepted_clients", "kind": "visual", "lib": "visual", "file": "accepted_clients_green.svg"},
+    {"id": "isolated_clients", "kind": "visual", "lib": "visual", "file": "isolated_clients_red.svg"},
+    {"id": "database_green", "kind": "visual", "lib": "visual", "file": "database_green.svg"},
+    {"id": "formula_topology_audit", "kind": "formula", "lib": "formula_outlined", "file": "01_topology_audit_blue.svg"},
+    {"id": "formula_memory", "kind": "formula", "lib": "formula_outlined", "file": "02_continual_memory_violet.svg"},
+    {"id": "formula_health", "kind": "formula", "lib": "formula_outlined", "file": "03_adaptive_health_orange.svg"},
+    {"id": "formula_hard_isolation", "kind": "formula", "lib": "formula_outlined", "file": "04_hard_isolation_red.svg"}
+  ],
+  "frames": [
+    {"id": "frame_module_topology_audit", "w": 270, "h": 178, "stroke": "#386FAE", "fill": "#FFFFFF", "stroke_width": 2.2, "radius": 13},
+    {"id": "frame_module_memory", "w": 230, "h": 178, "stroke": "#7667A8", "fill": "#FFFFFF", "stroke_width": 2.2, "radius": 13},
+    {"id": "frame_module_health", "w": 250, "h": 178, "stroke": "#D7893B", "fill": "#FFFFFF", "stroke_width": 2.2, "radius": 13},
+    {"id": "frame_module_hard_isolation", "w": 278, "h": 178, "stroke": "#C84A45", "fill": "#FFFFFF", "stroke_width": 2.2, "radius": 13},
+    {"id": "frame_accepted_set", "w": 218, "h": 68, "stroke": "#3B8B63", "fill": "#FFFFFF", "stroke_width": 2, "radius": 12},
+    {"id": "frame_isolated_set", "w": 218, "h": 72, "stroke": "#C84A45", "fill": "#FFFFFF", "stroke_width": 2, "radius": 12},
+    {"id": "frame_training_client", "w": 400, "h": 164, "stroke": "#3B8B63", "fill": "#FFFFFF", "stroke_width": 2, "radius": 12},
+    {"id": "frame_server_layer", "w": 1510, "h": 250, "stroke": "#386FAE", "fill": "#FFFFFF", "stroke_width": 1.8, "radius": 18, "dash": "7 6"}
+  ],
+  "connectors": [
+    {"id": "arrow_blue_short", "w": 62, "h": 22, "stroke": "#386FAE", "stroke_width": 2.6, "x1": 4, "y1": 11, "x2": 56, "y2": 11},
+    {"id": "arrow_green_short", "w": 50, "h": 22, "stroke": "#3B8B63", "stroke_width": 2.4, "x1": 4, "y1": 11, "x2": 44, "y2": 11},
+    {"id": "arrow_red_down", "w": 28, "h": 42, "stroke": "#C84A45", "stroke_width": 2.0, "x1": 14, "y1": 4, "x2": 14, "y2": 36}
+  ],
+  "units": [
+    {
+      "id": "module_01_topology_audit",
+      "canvas": {"w": 270, "h": 178},
+      "atoms": [
+        {"atom": "frame_module_topology_audit", "kind": "frame", "x": 0, "y": 0, "w": 270, "h": 178},
+        {"atom": "module_title_topology_audit", "kind": "text", "x": 44, "y": 12, "w": 188, "h": 44},
+        {"atom": "topology_blue", "kind": "visual", "x": 44, "y": 62, "w": 76, "h": 76},
+        {"atom": "matrix_blue", "kind": "visual", "x": 148, "y": 62, "w": 78, "h": 78},
+        {"atom": "formula_topology_audit", "kind": "formula", "x": 38, "y": 134, "w": 196, "h": 32}
+      ]
+    },
+    {
+      "id": "module_02_continual_memory",
+      "canvas": {"w": 230, "h": 178},
+      "atoms": [
+        {"atom": "frame_module_memory", "kind": "frame", "x": 0, "y": 0, "w": 230, "h": 178},
+        {"atom": "module_title_memory", "kind": "text", "x": 38, "y": 12, "w": 154, "h": 46},
+        {"atom": "memory_battery", "kind": "visual", "x": 58, "y": 65, "w": 118, "h": 58},
+        {"atom": "formula_memory", "kind": "formula", "x": 56, "y": 134, "w": 118, "h": 32}
+      ]
+    },
+    {
+      "id": "module_03_adaptive_health",
+      "canvas": {"w": 250, "h": 178},
+      "atoms": [
+        {"atom": "frame_module_health", "kind": "frame", "x": 0, "y": 0, "w": 250, "h": 178},
+        {"atom": "module_title_health_scoring", "kind": "text", "x": 34, "y": 12, "w": 180, "h": 46},
+        {"atom": "health_balance", "kind": "visual", "x": 42, "y": 63, "w": 82, "h": 78},
+        {"atom": "health_shield", "kind": "visual", "x": 142, "y": 63, "w": 68, "h": 78},
+        {"atom": "formula_health", "kind": "formula", "x": 68, "y": 134, "w": 116, "h": 32}
+      ]
+    },
+    {
+      "id": "module_04_hard_isolation",
+      "canvas": {"w": 278, "h": 178},
+      "atoms": [
+        {"atom": "frame_module_hard_isolation", "kind": "frame", "x": 0, "y": 0, "w": 278, "h": 178},
+        {"atom": "module_title_hard_isolation", "kind": "text", "x": 42, "y": 12, "w": 196, "h": 48},
+        {"atom": "norm_ratio_magnifier", "kind": "visual", "x": 42, "y": 62, "w": 84, "h": 84},
+        {"atom": "firewall_excluded", "kind": "visual", "x": 152, "y": 62, "w": 78, "h": 78},
+        {"atom": "formula_hard_isolation", "kind": "formula", "x": 58, "y": 134, "w": 166, "h": 32}
+      ]
+    },
+    {
+      "id": "decision_cluster_atomic_layout",
+      "canvas": {"w": 280, "h": 230},
+      "atoms": [
+        {"atom": "frame_accepted_set", "kind": "frame", "x": 16, "y": 10, "w": 218, "h": 68},
+        {"atom": "label_accepted_set", "kind": "text", "x": 40, "y": 18, "w": 166, "h": 28},
+        {"atom": "accepted_clients", "kind": "visual", "x": 64, "y": 44, "w": 116, "h": 26},
+        {"atom": "arrow_red_down", "kind": "connector", "x": 112, "y": 76, "w": 28, "h": 42},
+        {"atom": "frame_isolated_set", "kind": "frame", "x": 16, "y": 112, "w": 218, "h": 72},
+        {"atom": "label_isolated_set", "kind": "text", "x": 44, "y": 120, "w": 156, "h": 30},
+        {"atom": "isolated_clients", "kind": "visual", "x": 62, "y": 150, "w": 118, "h": 26}
+      ]
+    },
+    {
+      "id": "client_training_benign_atomic_layout",
+      "canvas": {"w": 400, "h": 164},
+      "atoms": [
+        {"atom": "frame_training_client", "kind": "frame", "x": 0, "y": 0, "w": 400, "h": 164},
+        {"atom": "label_client1_benign", "kind": "text", "x": 110, "y": 8, "w": 180, "h": 30},
+        {"atom": "topology_green", "kind": "visual", "x": 32, "y": 44, "w": 82, "h": 82},
+        {"atom": "arrow_green_short", "kind": "connector", "x": 118, "y": 73, "w": 50, "h": 22},
+        {"atom": "database_green", "kind": "visual", "x": 158, "y": 44, "w": 66, "h": 82},
+        {"atom": "arrow_green_short", "kind": "connector", "x": 224, "y": 73, "w": 50, "h": 22},
+        {"atom": "topology_green", "kind": "visual", "x": 268, "y": 44, "w": 82, "h": 82},
+        {"atom": "label_local_training", "kind": "text", "x": 86, "y": 126, "w": 230, "h": 28}
+      ]
+    }
+  ]
+}
