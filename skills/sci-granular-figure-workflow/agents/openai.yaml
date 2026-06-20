@@ -1,8 +1,0 @@
-interface:
-  display_name: "SCI Granular Figure Workflow"
-  short_description: "Atomic SVG workflow for SCI figures"
-  brand_color: "#386FAE"
-  default_prompt: "Use $sci-granular-figure-workflow to rebuild this SCI figure as atomic SVG assets with layout JSON and QA previews."
-
-policy:
-  allow_implicit_invocation: true

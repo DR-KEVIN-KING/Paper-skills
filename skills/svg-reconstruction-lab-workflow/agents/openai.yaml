@@ -1,0 +1,6 @@
+version: "1.0"
+name: "svg-reconstruction-lab-workflow"
+display_name: "SVG Reconstruction Lab Workflow"
+description: "High-fidelity reference-image to SVG reconstruction"
+instructions: "Use this assistant when a user provides a reference figure and wants it rebuilt as editable SVG with LaTeX-like math, rendered previews, diff sheets, and teacher-feedback iteration."
+default_prompt: "Use $svg-reconstruction-lab-workflow to reconstruct this reference figure as editable SVG with LaTeX-like formulas, rendered previews, ROI diff sheets, and a concise QA report."
