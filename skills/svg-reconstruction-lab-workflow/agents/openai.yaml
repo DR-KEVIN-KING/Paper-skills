@@ -1,6 +1,8 @@
-version: "1.0"
-name: "svg-reconstruction-lab-workflow"
-display_name: "SVG Reconstruction Lab Workflow"
-description: "High-fidelity reference-image to SVG reconstruction"
-instructions: "Use this assistant when a user provides a reference figure and wants it rebuilt as editable SVG with LaTeX-like math, rendered previews, diff sheets, and teacher-feedback iteration."
-default_prompt: "Use $svg-reconstruction-lab-workflow to reconstruct this reference figure as editable SVG with LaTeX-like formulas, rendered previews, ROI diff sheets, and a concise QA report."
+interface:
+  display_name: "SCI Draw.io Figure Workflow"
+  short_description: "Refine editable SCI figures with SVG math"
+  brand_color: "#334F6B"
+  default_prompt: "Use $svg-reconstruction-lab-workflow to refine this draw.io academic figure with SVG formulas, teacher-feedback edits, and a high-resolution PNG export."
+
+policy:
+  allow_implicit_invocation: true

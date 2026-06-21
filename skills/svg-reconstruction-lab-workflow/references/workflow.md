@@ -1,43 +1,29 @@
-# High-Fidelity SVG Reconstruction Workflow
+# Draw.io SCI Figure Refinement Workflow
 
-This workflow is for recreating academic schematic figures from a bitmap reference as editable SVG. It favors semantic rebuilding over automated vector tracing.
+This reference captures the workflow used for the topology-explainable robust federated trajectory prediction framework figure.
 
-## 1. Reference Setup
+## 1. Source Of Truth
 
-- Save the provided image as `reference.png` in a dedicated project folder.
-- Record width, height, and aspect ratio.
-- Use the original canvas size for the SVG `viewBox`.
-- Create a first blank SVG with only the title and major dashed regions to verify scale.
+- Treat the `.drawio` file as the source of truth after the user has manually adjusted it.
+- Do not rebuild from a bitmap when the user asks to refine an existing draw.io version.
+- Always create a backup beside the source:
 
-## 2. Semantic Decomposition
+  `Fig3_1_framework_iconfont_draft.before_<label>_<timestamp>.drawio`
 
-Map the reference into named visual groups before drawing:
+## 2. Safe Edit Order
 
-- `background`: white canvas, outer dashed frames, section dividers.
-- `title`: main title and any global caption.
-- `server_layer`: side label, server icon, top process cards.
-- `process_cards`: card frames, step numbers, icons, formula strips.
-- `connectors`: solid/dashed arrows, upload/broadcast labels, accepted/isolated routes.
-- `client_layer`: client training boxes, graph/database/arrow motifs, local training labels.
-- `data_layer`: vehicles, wireless marks, databases, trajectory graph boxes.
-- `privacy_note`: lock, footer message, bottom rule.
+1. Inspect relevant IDs and geometry.
+2. Backup the source file.
+3. Render formula SVGs if formulas are involved.
+4. Patch one narrow group at a time.
+5. Export PNG at 3x scale or higher.
+6. Inspect the whole image and at least one crop around changed regions.
 
-Use this layer map as the review checklist. If a region is wrong, patch only the relevant group.
+## 3. Formula Standards
 
-## 3. Drawing Strategy
-
-- Build icons from SVG primitives: `rect`, `circle`, `line`, `path`, `polygon`.
-- Use reusable helper functions for repeated motifs: cards, graphs, heat grids, memory bars, cylinders, cars, local graph boxes, people sets.
-- Keep line widths and fills centralized in constants.
-- Prefer slightly conservative saturation; academic figures usually look more polished when helper frames and dashed routes are quiet.
-- Use named output versions such as `v1`, `v2`, `v3` only when a human review happened between runs.
-
-## 4. Formula Rendering
-
-Use Matplotlib with:
+Use Matplotlib mathtext with STIX fonts:
 
 ```python
-matplotlib.use("svg")
 rcParams.update({
     "svg.fonttype": "path",
     "mathtext.fontset": "stix",
@@ -45,40 +31,65 @@ rcParams.update({
 })
 ```
 
-Render each formula as a tiny SVG, extract the `<g id="figure_1">` fragment, prefix IDs, then inline it inside the final SVG. This gives LaTeX-like glyphs and prevents missing-font issues in PNG/PDF/PPT exports.
+Recommended formulas for the framework figure:
 
-For labels such as `Upload: Delta_1^t, z_1^t`, split ordinary words and math paths when clarity matters. Give subscripts and superscripts enough width so they do not visually collide.
+- Step 1: `\Delta_i^t, e_i^t \rightarrow S_i^t, D_i^t`
+- Step 2: `Q_i^t \rightarrow \sigma_i^t`
+- Step 3: `\alpha_i^t, H_i^t`
+- Step 4: `H_i^t, R_i^t \rightarrow A^t, I^t`
+- Step 5 inline aggregation: `\theta^{t+1}=\Sigma_{i\in A^t}\,w_i^t\theta_i^{t+1}`
+- Step 6: `\theta^{t+1}`
 
-## 5. QA Outputs
+For Step 5, avoid the default display-style `\sum` when space is tight because it creates a tall stacked formula. Use inline `\Sigma_{i\in A^t}` or a single-row SVG unless the user asks for a display equation.
 
-Every reconstruction pass should produce:
+## 4. Common Fig. 3-1 Draw.io IDs
 
-- editable SVG
-- PNG render from SVG
-- side-by-side sheet: reference vs reconstruction
-- enhanced diff image
-- ROI sheet for top modules, flow lines, right legend, footer, or other critical areas
-- Markdown report with mean RGB delta, changed-pixel percentage, and SSIM when available
+Formula and module IDs:
 
-Pixel metrics guide iteration but do not replace visual review. A semantic SVG rebuilt from primitives will never perfectly match anti-aliased raster edges, so inspect formula legibility, alignment, and relative visual weight.
+- `module_1_formula`, `module_2_formula`, `module_3_formula`, `module_4_formula`
+- `module_5_formula_box`, `module_5_formula_l1`, `module_5_formula_l2`
+- `module_6_formula`
 
-## 6. Feedback Iteration Order
+Server-side routes:
 
-Apply feedback in this priority order:
+- `step4_to_accepted`
+- `step4_to_isolated`
+- `accepted_to_agg`
+- `isolated_to_excluded`
+- `broadcast_line`
+- `broadcast_down_1`, `broadcast_down_2`, `broadcast_down_3`
+- `upload_1`, `upload_2`, `upload_m`
 
-1. Text and formula readability.
-2. Arrow direction, anchor points, and routing.
-3. Major block alignment and spacing.
-4. Icon scale and stroke weight.
-5. Matrix/heatmap color levels.
-6. Dashed frame weight and saturation.
-7. Bottom labels, footer notes, and tiny spacing.
+Key text and groups:
 
-For teacher comments, convert each bullet into a concrete script edit: coordinate change, scale factor, stroke width, color constant, font size, or ROI crop adjustment.
+- `accepted_text`, `isolated_text`
+- `excluded_box`, `excluded_text`, `excluded_icon`, `excluded_x`
+- `client_1_data_local_graph_text`, `client_2_data_local_graph_text`, `malicious_data_local_graph_text`
+- `legend_matrix`, `privacy_icon`, `privacy_text`
 
-## 7. Finalization
+## 5. Teacher-Comment Mapping
 
-- Keep the source Python script with the final SVG so future edits are deterministic.
-- Only run SVGO or other optimizers after visual lock, and preserve useful group IDs.
-- Export PNG/TIFF/PDF after the SVG is approved.
-- If the user wants PPT editing, split the final SVG into logical groups in a later pass; do not sacrifice reconstruction fidelity during the first SVG pass.
+- "Formula is ugly / too small": rerender formula SVG, then replace the existing formula image cell and tune geometry.
+- "Arrow lines are stiff": use draw.io curved connectors only where they improve flow; use orthogonal connectors for audit branches.
+- "Broadcast and upload are mixed": move upload source/target points left/right so they do not share an x-coordinate with broadcast arrows.
+- "Isolated Set appears to enter aggregation": delete or reroute any red line into Step 5; keep only `Isolated Set -> Excluded Updates`.
+- "Colors are too bright": reduce saturation, keep semantic color roles, and deepen only main labels/flows for readability.
+- "Legend is too small": enlarge text and ensure legend icons match main diagram semantics.
+- "Local interaction graph is unreadable": make the label two lines: `Local interaction<br>graph`.
+
+## 6. Export Commands
+
+Prefer draw.io CLI:
+
+```bash
+drawio -x -f png -s 3 -o figure_review.png figure.drawio
+drawio -x -f pdf -o figure_review.pdf figure.drawio
+```
+
+If the CLI is missing, locate the app:
+
+```bash
+ls -d /Applications/draw.io.app /Applications/Draw.io.app 2>/dev/null
+```
+
+Use the PNG for teacher review, keep the `.drawio` for continued editing, and export PDF/SVG/PPT assets only after the teacher approves the layout.

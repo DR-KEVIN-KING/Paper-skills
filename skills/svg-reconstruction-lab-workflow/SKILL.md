@@ -1,66 +1,72 @@
 ---
 name: svg-reconstruction-lab-workflow
-description: "Use when rebuilding a reference figure as high-fidelity editable SVG: academic schematic screenshots, paper framework diagrams, PPT figures, formulas that need LaTeX-like rendering, pixel/ROI QA sheets, or teacher-feedback visual refinement."
+description: Use when refining SCI/thesis academic figures in draw.io from image/iconfont/SVG assets, especially workflows that need editable vector diagrams, LaTeX-like formula SVG replacement, teacher-feedback iteration, high-resolution PNG/PDF export, or conversion into PPT-ready editable objects while preserving manual edits.
 ---
 
 # SVG Reconstruction Lab Workflow
 
-Use this skill when the user wants a reference image recreated as a clean, editable SVG rather than traced or flattened. The goal is maximum visual fidelity while preserving vector primitives, math formulas, named layers, and repeatable QA outputs.
+Use this skill for publication-style figure refinement where a draw.io file is the source of truth. The priority is not full regeneration; the priority is preserving the user's manual edits while improving formulas, arrows, icon balance, legend readability, colors, and export quality.
 
-## When To Use
+## Non-Negotiables
 
-- A teacher/reference image is provided and the user asks to make a nearly identical SVG.
-- Formulas must look like LaTeX, not cramped Unicode text.
-- The figure needs iterative visual tuning: arrows, spacing, icon weight, color saturation, dashed frames, and small labels.
-- The user wants a reusable workflow for future figures, not just one exported PNG.
+- Backup the `.drawio` file before every modification.
+- Patch by stable `mxCell` IDs or narrow prefixes. Never regenerate the whole canvas when the user has hand-edited the figure.
+- Keep all final figure text in English for SCI/thesis use unless the user explicitly asks otherwise.
+- Render important formulas as SVG images with path-like LaTeX math; avoid cramped Unicode formula text.
+- For long aggregation formulas, prefer an inline one-row SVG unless the user explicitly asks for a display-style stacked sum.
+- Preserve semantic color roles: blue for server/broadcast/global, green for benign/accepted/upload, red for malicious/isolated/excluded, gray for neutral data/models.
+- Export review PNGs after edits and visually inspect the result before reporting completion.
 
 ## Core Workflow
 
-1. Copy the reference image into a project folder and keep its native canvas size.
-2. Decompose the figure into semantic layers: outer frames, title, modules/cards, icons, formulas, connectors, client/data rows, legends, and notes.
-3. Rebuild with explicit SVG primitives. Avoid raster tracing unless a bitmap texture is intentionally required.
-4. Render formulas with Matplotlib mathtext/LaTeX-like glyphs as inline SVG path groups.
-5. Render the SVG to PNG with `rsvg-convert`.
-6. Generate side-by-side, enhanced diff, ROI crop sheets, and a short QA report.
-7. Apply feedback in priority order: formula clarity, arrow alignment, module spacing, icon proportions, color/line weight, then tiny label polish.
-
-Read `references/workflow.md` before a serious reconstruction pass. Use `scripts/reconstruct_topology_framework_svg.py` as the proven starting script from the topology federated trajectory framework trial.
-
-## Tooling
-
-Preferred Python environment:
+If the host Python lacks Matplotlib/PyYAML, create a project virtual environment instead of modifying system Python:
 
 ```bash
-python3 -m venv .venv-svg-reconstruction
-. .venv-svg-reconstruction/bin/activate
-python -m pip install pillow matplotlib numpy scipy scikit-image
+python3 -m venv .venv-skill-workflow
+.venv-skill-workflow/bin/python -m pip install matplotlib pyyaml
 ```
 
-On macOS, install a renderer if needed:
+1. Read the user's teacher comments and convert each bullet into an element-level edit: formula size, route point, box position, icon scale, legend text, color, or export.
+2. Inspect the draw.io XML for relevant IDs with:
 
-```bash
-brew install librsvg
-```
+   ```bash
+   .venv-skill-workflow/bin/python scripts/refine_drawio_figure.py inspect path/to/figure.drawio --contains module_5
+   ```
 
-Run the bundled example script:
+3. Render or update formula SVGs with:
 
-```bash
-python scripts/reconstruct_topology_framework_svg.py \
-  --reference path/to/reference.png \
-  --out-dir outputs/svg_reconstruction_trial \
-  --name framework_reconstruction
-```
+   ```bash
+   .venv-skill-workflow/bin/python scripts/render_formula_svg.py \
+     --tex '\theta^{t+1}=\Sigma_{i\in A^t}\,w_i^t\theta_i^{t+1}' \
+     --out outputs/step5_inline.svg \
+     --font-size 22 --color '#222222'
+   ```
 
-The script writes editable SVG, rendered PNG, side-by-side comparison, enhanced diff, ROI sheet, and `qa_report.md`.
+4. Replace only the target formula/image cell and geometry:
+
+   ```bash
+   .venv-skill-workflow/bin/python scripts/refine_drawio_figure.py replace-image-svg figure.drawio \
+     --id module_5_formula_l1 --svg outputs/step5_inline.svg \
+     --x 1307 --y 272 --width 168 --height 30
+   ```
+
+5. Use targeted geometry/route edits for arrows and frames. See `references/workflow.md` for the exact SCI figure checklist and common Fig. 3-1 IDs.
+6. Export review images:
+
+   ```bash
+   .venv-skill-workflow/bin/python scripts/refine_drawio_figure.py export-png figure.drawio \
+     --out outputs/figure_review.png --scale 3
+   ```
 
 ## Quality Bar
 
-- Preserve the original canvas ratio and first match large layout blocks before tiny details.
-- Use path-rendered formulas for important math labels; reserve native text for ordinary labels that remain editable.
-- Prefer visual primitives for icons: graph nodes, matrix cells, cylinders, cars, arrows, gears, magnifiers, shields, and people.
-- Keep colors slightly restrained unless the reference is saturated.
-- For every teacher comment, update the script, regenerate all QA outputs, and inspect local crops before handing over.
+- Formulas remain readable after the figure is scaled to manuscript width.
+- Upload and broadcast arrows are visually separated: blue downward broadcast, green/red upward uploads.
+- Accepted Set flows only into robust aggregation; Isolated Set flows only into Excluded Updates.
+- Legends use the same icons, colors, and line styles as the main diagram.
+- Footer privacy statements and lock icons remain readable after export.
+- All changes are reversible through timestamped backups.
 
 ## Output Policy
 
-Do not overwrite the reference. Keep generated files in a dated output folder. If committing the skill, stage only the skill folder and intentionally removed older skill files; leave unrelated project artifacts alone.
+Keep the edited `.drawio` as the source file, plus exported `.png`/`.pdf` as review or submission artifacts. When committing this skill, stage only this skill folder and intentionally removed older skill files; leave unrelated thesis outputs alone.
